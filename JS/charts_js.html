@@ -20,7 +20,7 @@
   <canvas id="pieChart"></canvas>
 
   <script>
-    // Simulated server response (replace this with `fetch('/api/data')` for real server)
+    // Simulated server data
     const serverData = [
       { label: 'electronics', value: 1 },
       { label: 'beverages', value: 1 },
@@ -32,9 +32,8 @@
       { label: 'hardware', value: 1 }
     ];
 
-    // Extracting labels and values from server data
-    const labels = serverData.map(item => item.label);   // <-- labels from server
-    const values = serverData.map(item => item.value);   // <-- values from server
+    const labels = serverData.map(item => item.label);
+    const values = serverData.map(item => item.value);
 
     const colors = [
       '#4bc0c0', '#ff9f40', '#e74c3c', '#36a2eb',
@@ -45,10 +44,10 @@
     new Chart(document.getElementById('barChart').getContext('2d'), {
       type: 'bar',
       data: {
-        labels: labels, // <-- labels from server
+        labels: labels,
         datasets: [{
-          label: 'Products by Categories',
-          data: values, // <-- values from server
+          label: '', // Remove label to avoid clutter
+          data: values,
           backgroundColor: colors
         }]
       },
@@ -57,10 +56,20 @@
           title: {
             display: true,
             text: 'Products by Categories'
+          },
+          legend: {
+            display: false // No legend needed for bar chart
           }
         },
         responsive: true,
         scales: {
+          x: {
+            ticks: {
+              autoSkip: false,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          },
           y: {
             beginAtZero: true
           }
@@ -72,10 +81,10 @@
     new Chart(document.getElementById('pieChart').getContext('2d'), {
       type: 'pie',
       data: {
-        labels: labels, // <-- labels from server
+        labels: labels,
         datasets: [{
           label: 'Product Categories',
-          data: values, // <-- values from server
+          data: values,
           backgroundColor: colors
         }]
       },
