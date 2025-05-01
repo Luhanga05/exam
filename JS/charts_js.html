@@ -1,12 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Charts</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 600px;
+      margin: 20px auto;
+      display: block;
+    }
+    h2 {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <CAnvas id="MyChart" width="400" height="400"></CAnvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <h2>Charts</h2>
+  <canvas id="barChart"></canvas>
+  <canvas id="pieChart"></canvas>
+
+  <script>
+    // Simulated server response (replace this with `fetch('/api/data')` for real server)
+    const serverData = [
+      { label: 'electronics', value: 1 },
+      { label: 'beverages', value: 1 },
+      { label: 'household', value: 2 },
+      { label: 'toiletries', value: 1 },
+      { label: 'clothing', value: 1 },
+      { label: 'stationary', value: 1 },
+      { label: 'automotive', value: 1 },
+      { label: 'hardware', value: 1 }
+    ];
+
+    // Extracting labels and values from server data
+    const labels = serverData.map(item => item.label);   // <-- labels from server
+    const values = serverData.map(item => item.value);   // <-- values from server
+
+    const colors = [
+      '#4bc0c0', '#ff9f40', '#e74c3c', '#36a2eb',
+      '#2ecc71', '#f1c40f', '#9b59b6', '#f78fb3'
+    ];
+
+    // Bar Chart
+    new Chart(document.getElementById('barChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: labels, // <-- labels from server
+        datasets: [{
+          label: 'Products by Categories',
+          data: values, // <-- values from server
+          backgroundColor: colors
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Products by Categories'
+          }
+        },
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Pie Chart
+    new Chart(document.getElementById('pieChart').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: labels, // <-- labels from server
+        datasets: [{
+          label: 'Product Categories',
+          data: values, // <-- values from server
+          backgroundColor: colors
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Product Categories'
+          },
+          legend: {
+            position: 'bottom'
+          }
+        },
+        responsive: true
+      }
+    });
+  </script>
 </body>
 </html>
