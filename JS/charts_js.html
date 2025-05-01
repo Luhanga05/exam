@@ -5,7 +5,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     canvas {
-      max-width: 600px;
+      max-width: 800px;
+      max-height: 400px;  
       margin: 20px auto;
       display: block;
     }
@@ -16,19 +17,19 @@
 </head>
 <body>
   <h2>Charts</h2>
-  <canvas id="barChart"></canvas>
-  <canvas id="pieChart"></canvas>
+  <canvas id="barChart" width="800"></canvas>
+  <canvas id="pieChart" width="400"></canvas>
 
   <script>
     // Simulated server data
     const serverData = [
       { label: 'electronics', value: 1 },
       { label: 'beverages', value: 1 },
-      { label: 'household', value: 4 },
+      { label: 'household', value: 1 },
       { label: 'toiletries', value: 1 },
-      { label: 'clothing', value: 1 },
+      { label: 'clothing', value: 2 },
       { label: 'stationary', value: 1 },
-      { label: 'automotive', value: 1 },
+      { label: 'automotive', value: 4 },
       { label: 'hardware', value: 1 }
     ];
 
@@ -54,14 +55,14 @@
       options: {
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: 'Products by Categories'
           },
           legend: {
             display: false // No legend needed for bar chart
           }
         },
-        responsive: true,
+        responsive: false,
         scales: {
           x: {
             ticks: {
@@ -89,16 +90,21 @@
         }]
       },
       options: {
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: 'Product Categories'
           },
           legend: {
-            position: 'bottom'
+            position: 'bottom',
+            onclick: null
           }
         },
-        responsive: true
+        layout:{
+            padding: 20
+        }
       }
     });
   </script>
